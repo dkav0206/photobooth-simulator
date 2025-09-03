@@ -131,7 +131,7 @@ export default function PhotoStripModal({
             <button className="psm-btn" onClick={download} disabled={!stripUrl}>Tải dìe</button>
             <button className="psm-btn psm-secondary" onClick={onClose}>Hong Tải</button>
             <button className="psm-btn psm-secondary" onClick={() => {
-                navigate("/");         
+                navigate("/photobooth-simulator");         
                 window.location.reload();
             }}>Chụp Lại</button>
         </div>

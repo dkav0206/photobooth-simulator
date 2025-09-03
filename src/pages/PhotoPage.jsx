@@ -49,7 +49,7 @@ function applyWiggle(svg) {
 
 const RATIO_W = 200;
 const RATIO_H = 250;
-const interval = 100;
+const interval = 1000;
 
 
 export default function PhotoPage(props) { 
@@ -245,7 +245,7 @@ export default function PhotoPage(props) {
                     onClose={() => setOpen(false)}
                     images={photos}                 // pass your 4 captured dataURLs
                     panelWidth={600}                // adjust strip size
-                    downloadName="my_photostrip.png"
+                    downloadName="okokokok.png"
                 />
             </div>
         </div>
