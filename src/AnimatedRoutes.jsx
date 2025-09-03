@@ -18,7 +18,7 @@ export default function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route
-          path=""
+          path="photobooth-simulator"
           element={
             <motion.div {...page}>
               <HomeTemplate />
@@ -36,7 +36,7 @@ export default function AnimatedRoutes() {
         </Route>
 
         <Route
-          path="/photo"
+          path="photobooth-simulator/photo"
           element={
             <motion.div {...page}>
               <PhotoPage />
