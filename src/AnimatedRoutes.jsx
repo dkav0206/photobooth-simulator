@@ -36,7 +36,7 @@ export default function AnimatedRoutes() {
         </Route>
 
         <Route
-          path="photobooth-simulator/photo"
+          path="/photo"
           element={
             <motion.div {...page}>
               <PhotoPage />
