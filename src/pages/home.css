@@ -1,0 +1,76 @@
+.container{
+    position:relative;
+    width: 100vw;      /* full viewport width */
+    height: 100vh;     /* full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photoContainer{ 
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.photobooth{  }
+
+.discount{
+    position: absolute;
+    top: 65px;
+    left: 65px;    
+    width: 35%;                /* had no unit before */
+    height: 35%;                /* match container height */
+    animation: spin 1s steps(1, end) infinite; 
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.Khoa{
+    position: absolute;
+    top: 6px;
+    left:-10px;    
+    width: 30%;                /* had no unit before */
+    height: 30%;                /* match container height */
+    animation: spin 1s steps(1, end) infinite; 
+}
+
+.Rachel{
+    position: absolute;
+    top: -5px;
+    right: -15px;    
+    width: 35%;                /* had no unit before */
+    height: 35%;                /* match container height */
+    animation: spin 1s steps(1, end) infinite; 
+}
+
+.curtain{
+    position: absolute;
+    top: 94px;
+    right: -11px;    
+    width: 45%;                /* had no unit before */
+    height: 45%;                /* match container height */
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);  
+}
+
+
+.photoButton{
+    position: absolute;
+    top: 190px;
+    left: 20px;    
+    width: 30%;                /* had no unit before */
+    height: 30%;                /* match container height */
+    cursor: pointer;
+    
+}
+
+.photoButton:hover ~ .curtain {
+  transform: translateX(50%); /* slide completely to the right */
+}

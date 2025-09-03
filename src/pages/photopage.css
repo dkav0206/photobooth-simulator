@@ -1,0 +1,190 @@
+.secondContainer {
+  width: 100vw;             
+  height: 100vh;           
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerContainer {
+  width: 70%;                
+  height: 70%;               
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.instruction{
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.boothFrame{
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomRow{
+    width: 500px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.outputContainer{
+    position: relative;
+    width: 100%;
+    margin-right: 10px;
+}
+.outputRow{
+    width: 100%;
+}
+
+.strip{
+  position: absolute;
+  top: 60px;
+  left: 48px;
+  width: 8%;
+  opacity: 0;                 /* start invisible */
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+.strip.animate {
+  animation: stripFadeSlide 0.8s ease-out forwards;
+}
+
+.strip2{
+  position: absolute;
+  top: 60px;
+  left: 48px;
+  width: 8%;
+  opacity: 0;                 /* start invisible */
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+.strip2.animate {
+  animation: stripFadeSlide2 0.8s ease-out forwards;
+  animation-delay: 1s;
+
+}
+
+.strip2:hover {
+  width: 9%;
+  left:45px;
+}
+
+
+
+@keyframes stripFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  90% {
+    opacity: 1;               /* ✅ stays visible */
+    transform: translateY(0); /* ✅ stays in place */
+  }
+  100% {
+    opacity: 1; 
+    transform: translateX(15%) rotate(-15deg); /* ✅ combine here */
+  }
+}
+
+@keyframes stripFadeSlide2 {
+  0% {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+  90% {
+    opacity: 1;               /* ✅ stays visible */
+    transform: translateY(0); /* ✅ stays in place */
+  }
+  100% {
+    opacity: 1; 
+    transform: translateX(15%) rotate(-5deg); /* ✅ combine here */
+  }
+}
+
+
+.buttonPressContainer {
+    position:relative;
+    width: 20%;
+    height: 90%;
+    background-color: white;
+    border: 8px solid #ffffff;
+    animation: wiggleBox 0.6s steps(1, end) infinite;
+    transform-origin: center; /* rotate around center */
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius:15px 255px;
+    margin-right: 10px;
+}
+
+.boothFrameContainer{
+    position: relative;
+}
+
+@keyframes wiggleBox {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.cameraContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 200px;
+    height: 250px;
+    background-color: white;
+    border: 8px solid #0254D9;
+    transform-origin: center; /* rotate around center */
+}
+
+.countDown{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    font-weight: 900;
+}
+
+@media screen and (max-width: 768px) {
+    .instruction{
+        width: 400px;
+    }
+
+
+    .boothFrame{
+       width: 400px;
+    }
+
+    .bottomRow{
+        width: 400px;
+    }
+
+    .cameraContainer{
+        width: 150px;
+        height: 187px;
+    }
+
+    .strip{
+        top: 45px;
+        left: 37px;
+    }
+}
+
