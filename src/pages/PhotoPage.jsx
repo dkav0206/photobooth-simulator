@@ -8,7 +8,7 @@ import LeverPull from '../components/LeverPull';
 import PhotoStripModal from '../components/PhotoStripModal';
 
 function applyWiggle(svg) {
-  if (!svg || svg.dataset.wiggled) return; // avoid double-inject
+  if (!svg || svg.dataset.wiggled) return;
   svg.dataset.wiggled = "true";
 
   const svgns = "http://www.w3.org/2000/svg";
@@ -47,8 +47,6 @@ function applyWiggle(svg) {
   svg.setAttribute("filter", `url(#${fid})`);
 }
 
-const RATIO_W = 200;
-const RATIO_H = 250;
 const interval = 1000;
 const photoNo = 4;
 
@@ -60,7 +58,6 @@ export default function PhotoPage(props) {
     const boothFrameRef = useRef(null);
     const outputRef = useRef(null);
     const videoRef = useRef(null);
-    const [cameraOn, setCameraOn] = useState(false);
     const canvasRef = useRef(null);
     const stripRef = useRef(null);
     const [photos, setPhotos] = useState([]);
@@ -103,7 +100,6 @@ export default function PhotoPage(props) {
 
         const ctx = canvas.getContext("2d");
 
-        // Compute centered crop from the video to match 4:5 ratio
         const vW = video.videoWidth || 1280;
         const vH = video.videoHeight || 720;
         const videoAspect = vW / vH;
@@ -131,12 +127,9 @@ export default function PhotoPage(props) {
             setCountDown(4 - a);
             }
 
-            // draw mirrored, cropped frame into 4:5 canvas
             ctx.clearRect(0, 0, OUTPUT_W, OUTPUT_H);
             ctx.save();
-            // Mirror horizontally (selfie-style):
             ctx.scale(-1, 1);
-            // Because X is flipped, draw at negative dest-x to land at (0,0)
             ctx.drawImage(
             video,
             sx, sy, sWidth, sHeight, // source crop rect in the video
@@ -154,15 +147,16 @@ export default function PhotoPage(props) {
 
     useEffect(() => {
         const makeWiggly = (host) => {
-        if (!host) return;
-        const svg = host.tagName?.toLowerCase() === "svg" ? host : host.querySelector("svg");
-        if (svg) applyWiggle(svg);
+            if (!host) return;
+            const svg = host.tagName?.toLowerCase() === "svg" ? host : host.querySelector("svg");
+            console.log(svg)
+            if (svg) applyWiggle(svg);
         };
         makeWiggly(instructionRef.current);
         makeWiggly(boothFrameRef.current);
         makeWiggly(outputRef.current);
         makeWiggly(stripRef.current);
-    }, []);
+    }, [location.pathname]);
     
 
 
