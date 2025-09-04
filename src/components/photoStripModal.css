@@ -7,7 +7,7 @@
 }
 
 .psm-img{
-    width: 10%;
+    width: 120px;
     transform: rotate(-5deg);
     transition: transform 0.3s ease;
 }
@@ -36,22 +36,48 @@
 }
 
 .psm-btn {
-    border: solid 8px #0254D9;
+    border: solid 8px #000000;
     padding: 20px 30px;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
     font-size: 20px;
     background-color: #e5e7ebbc;
-    color:#1B53AD;
+    color:#000000;
+    background: #000000;
+    color:#ffffff;
 }
 
-.psm-btn:hover { background: #6aa0e6; }
+@media screen and (max-width: 768px) {
+  .psm-btn { 
+    border: solid 5px #000000;
+    padding: 12px 17px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .psm-btn { 
+    border: solid 3px #000000;
+    padding: 8px 13px;
+    font-size: 15px;
+  }
+}
+
+.psm-btn:hover { background: #202123; }
 
 
 .psm-btn:disabled { opacity: .6; cursor: not-allowed; }
 
-.psm-btn.psm-secondary:hover { background: #d1d5db; }
+.psm-btn.psm-secondary { 
+  color:#000000;
+  background: #d1d5db8f; 
+
+}
+.psm-btn.psm-secondary:hover { 
+  color:#000000;
+  background: #ffffffda; 
+
+}
 
 .psm-actions .psm-btn {
   animation: psmStagger .35s ease-out both;

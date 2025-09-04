@@ -96,7 +96,7 @@ export default function Home(props) {
                     <R width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
                     {...props}/>
                  </div>
-                 <div ref={buttonRef} className='photoButton' onClick={() => navigate("/photo")}>
+                 <div ref={buttonRef} className='photoButton' onClick={() => navigate("/photobooth-simulator/photo")}>
                     <PhotoButton width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
                     {...props}/>
                  </div>

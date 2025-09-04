@@ -205,8 +205,7 @@ export default function PhotoPage(props) {
                             {...props}/>
                         </div>
 
-                        <div ref={stripRef} className={`strip ${animate ? "animate" : ""}`}
-                        onClick={{}}>
+                        <div ref={stripRef} className={`strip ${animate ? "animate" : ""}`}>
                             <Strip width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
                             {...props}/>
                         </div>
@@ -237,7 +236,7 @@ export default function PhotoPage(props) {
                 </div>
                 <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
                     {photos.map((src, i) => (
-                        <img key={i} src={src} alt={`photo-${i}`} style={{ width: "100px", border: "1px solid #ccc" }} />
+                        <img className="pre-photo" key={i} src={src} alt={`photo-${i}`} style={{ border: "5px solid #000000ff" }} />
                     ))}
                 </div>
                 <PhotoStripModal

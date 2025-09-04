@@ -148,7 +148,7 @@
     width: 200px;
     height: 250px;
     background-color: white;
-    border: 8px solid #0254D9;
+    border: 8px solid #000000;
     transform-origin: center; /* rotate around center */
 }
 
@@ -163,11 +163,32 @@
     font-weight: 900;
 }
 
+.pre-photo{
+  width: 100px; 
+  border: "5px solid #fff";
+  animation: morphBorder 1s steps(1,end) infinite;
+}
+
+.pre-photo:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.pre-photo:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.pre-photo:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.pre-photo:nth-child(4) {
+  animation-delay: 0.75s;
+}
+
 @media screen and (max-width: 768px) {
     .instruction{
         width: 400px;
     }
-
 
     .boothFrame{
        width: 400px;
@@ -180,11 +201,94 @@
     .cameraContainer{
         width: 150px;
         height: 187px;
+        border-width: 7px;
     }
 
-    .strip{
+    .strip, .strip2{
         top: 45px;
         left: 37px;
     }
+
+    .strip2:hover {
+      width: 9%;
+      left:35px;
+      top:42px;
+    }
+
+    .pre-photo{
+      width: 85px;
+      border: "4px solid #fff";
+      animation: morphBorder 1s steps(1,end) infinite;
+    }
 }
 
+
+@media screen and (max-width: 430px) {
+    .instruction{
+        width: 300px;
+    }
+
+
+    .boothFrame{
+       width: 300px;
+    }
+
+    .bottomRow{
+        width: 300px;
+    }
+
+    .cameraContainer{
+        width: 100px;
+        height: 124.5px;
+        border-width: 5px;
+    }
+
+    .strip, .strip2{
+        top: 33px;
+        left: 30px;
+    }
+    
+    .strip2:hover {
+      width: 9%;
+      left:27px;
+      top:30px;
+    }
+
+
+    .pre-photo{
+      width: 60px;
+      border: "3px solid #fff";
+      animation: morphBorder 1s steps(1,end) infinite;
+    }
+
+    .pre-photo {
+      width: 60px;
+      height: 60px;
+      border: 3px solid #fff; /* remove quotes around value */
+      animation: morphBorder 1s steps(1, end) infinite;
+    }
+
+
+}
+
+
+@keyframes morphBorder {
+  0% {
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius: 15px 255px;
+  }
+  50% {
+    border-top-right-radius: 255px 15px;
+    border-top-left-radius: 15px 225px;
+    border-bottom-left-radius: 225px 15px;
+    border-bottom-right-radius: 15px 255px;
+  }
+  100% {
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius: 15px 255px;
+  }
+}
