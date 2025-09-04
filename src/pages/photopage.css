@@ -145,12 +145,27 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 200px;
-    height: 250px;
+    height: 180px;
+    width: 270px;
     background-color: white;
     border: 8px solid #000000;
     transform-origin: center; /* rotate around center */
+    
 }
+
+
+.bigg-ahh-rec{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 180px;
+  width: 270px;
+  background-color: rgb(255, 255, 255);
+  border: 8px solid #000000;
+  z-index: 99;
+}
+
 
 .countDown{
     position: absolute;
@@ -198,12 +213,12 @@
         width: 400px;
     }
 
-    .cameraContainer{
-        width: 150px;
-        height: 187px;
+    .cameraContainer, .bigg-ahh-rec{
+        height: 150px;
+        width: 225px;
         border-width: 7px;
     }
-
+  
     .strip, .strip2{
         top: 45px;
         left: 37px;
@@ -237,9 +252,9 @@
         width: 300px;
     }
 
-    .cameraContainer{
-        width: 100px;
-        height: 124.5px;
+    .cameraContainer, .bigg-ahh-rec{
+        height: 100px;
+        width: 150px;
         border-width: 5px;
     }
 
@@ -261,12 +276,6 @@
       animation: morphBorder 1s steps(1,end) infinite;
     }
 
-    .pre-photo {
-      width: 60px;
-      height: 60px;
-      border: 3px solid #fff; /* remove quotes around value */
-      animation: morphBorder 1s steps(1, end) infinite;
-    }
 
 
 }

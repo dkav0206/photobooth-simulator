@@ -49,7 +49,8 @@ function applyWiggle(svg) {
 
 const RATIO_W = 200;
 const RATIO_H = 250;
-const interval = 1000;
+const interval = 100;
+const photoNo = 4;
 
 
 export default function PhotoPage(props) { 
@@ -92,7 +93,7 @@ export default function PhotoPage(props) {
         if (!canvasRef.current) canvasRef.current = canvas;
 
         // --- target ratio: 200:250 (i.e., 4:5) ---
-        const targetAspect = 200 / 250; // 0.8 (width/height)
+        const targetAspect = 300 / 200; // 0.8 (width/height)
 
         // Choose an output size that keeps 4:5 ratio (tweak if you want)
         const OUTPUT_H = Math.min(video.videoHeight || 1000, 1000); // cap to 1000px tall
@@ -123,7 +124,7 @@ export default function PhotoPage(props) {
         }
 
         const shots = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < photoNo; i++) {
             // 4-second countdown (4,3,2,1)
             for (let a = 0; a < 4; a++) {
             await sleep(interval);
@@ -188,9 +189,13 @@ export default function PhotoPage(props) {
                         /> 
                     </div>
 
-                    {countDown == 5 ? <></>:<div className='countDown'>
-                        <p>{countDown}</p>
-                    </div>}
+                    {countDown == 5 ? 
+                        <div className='bigg-ahh-rec'>
+                        </div>
+                        :<div className='countDown'>
+                            <p>{countDown}</p>
+                        </div>
+                    }
                     
                     <div ref={boothFrameRef} className='boothFrame'>
                         <BoothFrame width="100%" height="100%" preserveAspectRatio="xMidYMid meet"

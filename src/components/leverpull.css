@@ -18,3 +18,11 @@
         left:3px;
     }
 }
+
+
+@media screen and (max-width: 430px) {
+    .frame{
+        top:-36px;
+        left:3px;
+    }
+}
