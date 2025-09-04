@@ -49,7 +49,7 @@ function applyWiggle(svg) {
 
 const RATIO_W = 200;
 const RATIO_H = 250;
-const interval = 100;
+const interval = 1000;
 const photoNo = 4;
 
 
