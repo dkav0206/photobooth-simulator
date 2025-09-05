@@ -8,6 +8,7 @@
 }
 
 .photoContainer{ 
+    width: 300px;
     position: relative;
     display: inline-block;
     justify-content: center;
@@ -63,14 +64,33 @@
 
 .photoButton{
     position: absolute;
-    top: 190px;
+    top: 235px;
     left: 20px;    
     width: 30%;                /* had no unit before */
-    height: 30%;                /* match container height */
     cursor: pointer;
     
 }
 
 .photoButton:hover ~ .curtain {
   transform: translateX(50%); /* slide completely to the right */
+}
+
+@media screen and (max-width: 430px) {
+    .photoContainer{
+        width: 200px;
+    }
+
+    .curtain{
+        top: 63px;
+    }
+
+    .discount{
+        top: 45px;
+        left: 45px; 
+    }
+
+    .photoButton{
+       top: 157px; 
+       left: 13px; 
+    }
 }

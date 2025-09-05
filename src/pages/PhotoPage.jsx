@@ -1,62 +1,60 @@
 import { useEffect, useRef, useState } from 'react';
-import Instruction from '../assets/Instruction.svg?react'
-import BoothFrame from '../assets/BoothFrame.svg?react'
-import Output from '../assets/Output.svg?react'
+import Instruction from '../assets/Instruction.gif';
+import BoothFrame from '../assets/BoothFrame.gif'
+import PhotoFrame from '../assets/PhotoFrame.gif'
+import Output from '../assets/Output.gif'
 import Strip from "../assets/strip.svg?react";
 import './photopage.css'
 import LeverPull from '../components/LeverPull';
 import PhotoStripModal from '../components/PhotoStripModal';
 
 function applyWiggle(svg) {
-  if (!svg || svg.dataset.wiggled) return;
-  svg.dataset.wiggled = "true";
+    if (!svg || svg.dataset.wiggled) return;
+    svg.dataset.wiggled = "true";
 
-  const svgns = "http://www.w3.org/2000/svg";
-  const defs = document.createElementNS(svgns, "defs");
-  const filter = document.createElementNS(svgns, "filter");
-  const turb = document.createElementNS(svgns, "feTurbulence");
-  const anim = document.createElementNS(svgns, "animate");
-  const disp = document.createElementNS(svgns, "feDisplacementMap");
+    const svgns = "http://www.w3.org/2000/svg";
+    const defs = document.createElementNS(svgns, "defs");
+    const filter = document.createElementNS(svgns, "filter");
+    const turb = document.createElementNS(svgns, "feTurbulence");
+    const anim = document.createElementNS(svgns, "animate");
+    const disp = document.createElementNS(svgns, "feDisplacementMap");
 
-  const fid = "wiggle-" + Math.random().toString(36).slice(2);
-  filter.setAttribute("id", fid);
+    const fid = "wiggle-" + Math.random().toString(36).slice(2);
+    filter.setAttribute("id", fid);
 
-  turb.setAttribute("type", "fractalNoise");
-  turb.setAttribute("baseFrequency", "0.01");
-  turb.setAttribute("numOctaves", "3");
-  turb.setAttribute("seed", "2");
-  turb.setAttribute("result", "noise");
+    turb.setAttribute("type", "fractalNoise");
+    turb.setAttribute("baseFrequency", "0.01");
+    turb.setAttribute("numOctaves", "3");
+    turb.setAttribute("seed", "2");
+    turb.setAttribute("result", "noise");
 
-  anim.setAttribute("attributeName", "seed");
-  anim.setAttribute("values", "2;120;2"); // seamless loop
-  anim.setAttribute("dur", "50s");         // adjust speed (you had 50s = very slow)
-  anim.setAttribute("repeatCount", "indefinite");
-  turb.appendChild(anim);
+    anim.setAttribute("attributeName", "seed");
+    anim.setAttribute("values", "2;120;2"); // seamless loop
+    anim.setAttribute("dur", "50s");         // adjust speed (you had 50s = very slow)
+    anim.setAttribute("repeatCount", "indefinite");
+    turb.appendChild(anim);
 
-  disp.setAttribute("in", "SourceGraphic");
-  disp.setAttribute("in2", "noise");
-  disp.setAttribute("scale", "5");        // wiggle strength (2–8 is nice)
-  disp.setAttribute("xChannelSelector", "R");
-  disp.setAttribute("yChannelSelector", "G");
+    disp.setAttribute("in", "SourceGraphic");
+    disp.setAttribute("in2", "noise");
+    disp.setAttribute("scale", "5");        // wiggle strength (2–8 is nice)
+    disp.setAttribute("xChannelSelector", "R");
+    disp.setAttribute("yChannelSelector", "G");
 
-  filter.appendChild(turb);
-  filter.appendChild(disp);
-  defs.appendChild(filter);
+    filter.appendChild(turb);
+    filter.appendChild(disp);
+    defs.appendChild(filter);
 
-  svg.insertBefore(defs, svg.firstChild);
-  svg.setAttribute("filter", `url(#${fid})`);
+    svg.insertBefore(defs, svg.firstChild);
+    svg.setAttribute("filter", `url(#${fid})`);
 }
 
-const interval = 1000;
+const interval = 100;
 const photoNo = 4;
 
 
-export default function PhotoPage(props) { 
+export default function PhotoPage(props) {
     const [open, setOpen] = useState(false); // photos = array of dataURLs
     const [animate, setAnimate] = useState(false);
-    const instructionRef = useRef(null);
-    const boothFrameRef = useRef(null);
-    const outputRef = useRef(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const stripRef = useRef(null);
@@ -123,17 +121,17 @@ export default function PhotoPage(props) {
         for (let i = 0; i < photoNo; i++) {
             // 4-second countdown (4,3,2,1)
             for (let a = 0; a < 4; a++) {
-            await sleep(interval);
-            setCountDown(4 - a);
+                await sleep(interval);
+                setCountDown(4 - a);
             }
 
             ctx.clearRect(0, 0, OUTPUT_W, OUTPUT_H);
             ctx.save();
             ctx.scale(-1, 1);
             ctx.drawImage(
-            video,
-            sx, sy, sWidth, sHeight, // source crop rect in the video
-            -OUTPUT_W, 0, OUTPUT_W, OUTPUT_H // destination on flipped canvas
+                video,
+                sx, sy, sWidth, sHeight, // source crop rect in the video
+                -OUTPUT_W, 0, OUTPUT_W, OUTPUT_H // destination on flipped canvas
             );
             ctx.restore();
 
@@ -142,30 +140,33 @@ export default function PhotoPage(props) {
         }
 
         setCountDown(5); // whatever sentinel you use after the sequence
-        };
+    };
 
 
     useEffect(() => {
         const makeWiggly = (host) => {
             if (!host) return;
             const svg = host.tagName?.toLowerCase() === "svg" ? host : host.querySelector("svg");
-            console.log(svg)
             if (svg) applyWiggle(svg);
         };
-        makeWiggly(instructionRef.current);
-        makeWiggly(boothFrameRef.current);
-        makeWiggly(outputRef.current);
         makeWiggly(stripRef.current);
-    }, [location.pathname]);
-    
+    }, []);
+
 
 
     return (
         <div className="secondContainer">
             <div className='innerContainer'>
-                <div  ref={instructionRef} className='instruction'>
-                    <Instruction width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                    {...props}/>
+                <div className='instruction'>
+                    {/* <Instruction width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
+                        {...props} /> */}
+                     <img
+                        src={Instruction}
+                        alt="Instruction"
+                        width="100%"
+                        height="100%"
+                        style={{ objectFit: "contain" }}
+                    />
                 </div>
                 <div className='boothFrameContainer'>
                     <div className='cameraContainer'>
@@ -180,41 +181,63 @@ export default function PhotoPage(props) {
                                 objectFit: "cover",
                                 transform: "scaleX(-1)"
                             }}
-                        /> 
+                        />
                     </div>
 
-                    {countDown == 5 ? 
-                        <div className='bigg-ahh-rec'>
-                        </div>
-                        :<div className='countDown'>
+                    {countDown === 5 ? (
+                        <div className="bigg-ahh-rec"></div>
+                        ) : countDown === 1 ? (
+                        <div className="bigg-ahh-rec flash"></div>
+                        ) : (
+                        <div className="countDown">
                             <p>{countDown}</p>
                         </div>
-                    }
-                    
-                    <div ref={boothFrameRef} className='boothFrame'>
-                        <BoothFrame width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                        {...props}/>
+                    )}
+
+                    <div className='boothFrame'>
+                        <img
+                            src={BoothFrame}
+                            alt="BoothFrame"
+                            width="100%"
+                            height="100%"
+                            style={{ objectFit: "contain" }}
+                        />
                     </div>
-                    
+
+                    <div className='photoFrame'>
+                        <img
+                            src={PhotoFrame}
+                            alt="PhotoFrame"
+                            width="100%"
+                            height="100%"
+                            style={{ objectFit: "contain" }}
+                        />
+                    </div>
+
                 </div>
                 <div className='bottomRow'>
                     <div className='outputContainer'>
-                        <div  ref={outputRef} className='outputRow'>
-                            <Output width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                            {...props}/>
+                        <div className='outputRow'>
+                            <img
+                                src={Output}
+                                alt="Output"
+                                width="100%"
+                                height="100%"
+                                style={{ objectFit: "contain" }}
+                            />
                         </div>
 
                         <div ref={stripRef} className={`strip ${animate ? "animate" : ""}`}>
                             <Strip width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                            {...props}/>
+                                {...props} />
                         </div>
-                        
+
                         <div ref={stripRef} className={`strip2 ${animate ? "animate" : ""}`}
-                            onClick={() => {setOpen(true)}}>
-                                <Strip width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                                {...props}/>
+                            onClick={() => { setOpen(true) }}>
+                            <Strip width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
+                                {...props} />
                         </div>
-                     </div>
+                    </div>
                     <div className='buttonPressContainer'>
                         <LeverPull
                             stepMs={140}
@@ -229,7 +252,7 @@ export default function PhotoPage(props) {
                                 }
                             }}
                             holdOnFour={true}
-                            />
+                        />
                     </div>
 
                 </div>

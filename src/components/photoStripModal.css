@@ -4,6 +4,11 @@
   display: grid; place-items: center;
   z-index: 1000;
   animation: psmFade .28s ease-out both;
+  overflow: auto;                 /* <— key */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-top:20px;
+  padding-bottom: 20px;
 }
 
 .psm-strip-container{
@@ -18,12 +23,12 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   color: white;
   background-color: black;
   border-radius: 100px;
-  font-size:30px;
+  font-size:25px;
   border-width: 0px;
   z-index: 99;
   transition: all 0.1s;
@@ -38,7 +43,7 @@
 }
 
 .psm-strip-button::after {
-  content: '+'; /* default text */
+  content: '＋'; /* default text */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -46,13 +51,32 @@
   transition: opacity 0.2s ease;
 }
 
+.psm-strip-button:active{
+  transform: scale(0.9) translateY(2px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
 /* Hover label */
 .psm-strip-button:hover::after {
-  content: 'Add'; /* text when hovered */
+  content: 'Filter'; /* text when hovered */
   font-size: 18px;
   font-weight: 600;
 }
 
+.psm-strip-button.psm-clicked::after {
+  content: '✕'; /* default text */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+}
+
+.psm-strip-button.psm-clicked:hover::after {
+  content: 'Close'; /* text when hovered */
+  font-size: 18px;
+  font-weight: 600;
+}
 
 .psm-strip{
     position: relative;
@@ -91,12 +115,22 @@
     transform: scale(.95) translateY(6px) rotate(-10deg); 
 }
 
-@keyframes psm-pop {
-  from { opacity: 0; transform: scale(.95) translateY(6px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+.filterContainer{
+  position: relative;
+  width: 40%;
+  height: 200px;
+  margin: 40px 0;
+  padding: 10px 20px;
+  animation: psmStagger .35s ease-out both;
+  background-color: white;
+  border: solid 5px black;
 }
 
-
+.frameContainer{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
 .psm-actions {
   display: flex; gap: 12px; justify-content: center;
   align-items: center;
@@ -112,45 +146,13 @@
     background-color: #e5e7ebbc;
     color:#000000;
     background: #000000;
+    transition: transform 0.1s ease, box-shadow 0.1s ease!important;
     color:#ffffff;
 }
 
-@media screen and (max-width: 768px) {
-  .psm-btn { 
-    border: solid 5px #000000;
-    padding: 12px 17px;
-  }
-
-  .psm-strip{
-    width: 150px;
-    height: 450px;
-  }
-
-  .psm-strip-container{
-    width: 400px;
-  }
-
-  .psm-strip{
-    padding:7.5px;
-    gap: 4px;
-  }
-}
-
-@media screen and (max-width: 430px) {
-  .psm-btn { 
-    border: solid 3px #000000;
-    padding: 8px 13px;
-    font-size: 15px;
-    
-  }
-
-  .psm-strip-container{
-    width: 300px;
-  }
-  .psm-strip{
-    padding:7px;
-    gap: 3px;
-  }
+.psm-btn:active{
+  transform: scale(0.9)!important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2)!important;
 }
 
 .psm-btn:hover { background: #202123; }
@@ -177,7 +179,11 @@
 .psm-actions .psm-btn:nth-child(3) { animation-delay: .42s; }
 
 
-/* Keyframes */
+@keyframes psm-pop {
+  from { opacity: 0; transform: scale(.95) translateY(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 @keyframes psmFade {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -205,5 +211,66 @@
   .psm-actions,
   .psm-actions .psm-btn {
     animation: none !important;
+  }
+}
+
+
+
+@media screen and (max-width: 768px), screen and (max-height: 600px) {
+  .psm-btn { 
+    border: solid 5px #000000;
+    padding: 12px 17px;
+  }
+
+  .psm-strip{
+    width: 150px;
+    height: 450px;
+  }
+
+  .psm-strip-container{
+    width: 400px;
+  }
+
+  .psm-strip{
+    padding:7.5px;
+    gap: 4px;
+  }
+
+  
+}
+@media screen and (max-width: 768px){
+  .filterContainer{
+    width: 70%;
+  }
+}
+
+
+
+
+@media screen and (max-width: 430px) {
+  .psm-btn { 
+    border: solid 3px #000000;
+    padding: 8px 13px;
+    font-size: 15px;
+    
+  }
+
+  .psm-strip-container{
+    width: 300px;
+  }
+
+  .psm-strip{
+    padding:7px;
+    gap: 3px;
+  }
+
+  .psm-strip-button{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .filterContainer{
+    width: 80%;
   }
 }

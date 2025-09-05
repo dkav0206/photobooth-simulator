@@ -17,7 +17,7 @@
 }
 
 .instruction{
-    width: 500px;
+    width: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,14 +26,14 @@
 
 
 .boothFrame{
-    width: 500px;
+    width: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .bottomRow{
-    width: 500px;
+    width: 400px;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -50,8 +50,8 @@
 
 .strip{
   position: absolute;
-  top: 60px;
-  left: 48px;
+  top: 45px;
+  left: 40px;
   width: 8%;
   opacity: 0;                 /* start invisible */
   will-change: transform, opacity;
@@ -64,8 +64,8 @@
 
 .strip2{
   position: absolute;
-  top: 60px;
-  left: 48px;
+  top: 45px;
+  left: 40px;
   width: 8%;
   opacity: 0;                 /* start invisible */
   will-change: transform, opacity;
@@ -80,7 +80,8 @@
 
 .strip2:hover {
   width: 9%;
-  left:45px;
+  left:35px;
+  top:42px;
 }
 
 
@@ -140,30 +141,44 @@
   50% { transform: rotate(2deg); }
 }
 
-.cameraContainer{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    height: 180px;
-    width: 270px;
-    background-color: white;
-    border: 8px solid #000000;
-    transform-origin: center; /* rotate around center */
-    
-}
 
-
-.bigg-ahh-rec{
+.cameraContainer, .bigg-ahh-rec{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  height: 180px;
-  width: 270px;
-  background-color: rgb(255, 255, 255);
-  border: 8px solid #000000;
+  height: 140px;
+  width: 210px;
+  background-color: white;
+}
+
+.photoFrame{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 150px;
+  width: 220px;
   z-index: 99;
+}
+
+.cameraContainer{
+    transform-origin: center; /* rotate around center */
+}
+
+.bigg-ahh-rec{
+  z-index: 80;
+}
+
+.flash {
+  animation: flashTwice 0.8s ease-in-out forwards;
+}
+
+@keyframes flashTwice {
+  0%   { background: white; opacity: 1; }
+  25%  { background: transparent; opacity: 0; }
+  50%  { background: white; opacity: 1; }
+  100% { background: transparent; opacity: 0; }
 }
 
 
@@ -179,8 +194,8 @@
 }
 
 .pre-photo{
-  width: 100px; 
-  border: "5px solid #fff";
+  width: 85px;
+  border: "4px solid #fff";
   animation: morphBorder 1s steps(1,end) infinite;
 }
 
@@ -200,44 +215,6 @@
   animation-delay: 0.75s;
 }
 
-@media screen and (max-width: 768px) {
-    .instruction{
-        width: 400px;
-    }
-
-    .boothFrame{
-       width: 400px;
-    }
-
-    .bottomRow{
-        width: 400px;
-    }
-
-    .cameraContainer, .bigg-ahh-rec{
-        height: 150px;
-        width: 225px;
-        border-width: 7px;
-    }
-  
-    .strip, .strip2{
-        top: 45px;
-        left: 37px;
-    }
-
-    .strip2:hover {
-      width: 9%;
-      left:35px;
-      top:42px;
-    }
-
-    .pre-photo{
-      width: 85px;
-      border: "4px solid #fff";
-      animation: morphBorder 1s steps(1,end) infinite;
-    }
-}
-
-
 @media screen and (max-width: 430px) {
     .instruction{
         width: 300px;
@@ -255,9 +232,12 @@
     .cameraContainer, .bigg-ahh-rec{
         height: 100px;
         width: 150px;
-        border-width: 5px;
     }
 
+    .photoFrame{
+      height: 110px;
+      width: 156px;
+    }
     .strip, .strip2{
         top: 33px;
         left: 30px;

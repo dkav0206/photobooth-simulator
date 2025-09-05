@@ -1,6 +1,6 @@
 import './home.css'
-import Phototemplate from '../assets/Phototemplate.svg?react'
-import Curtain from '../assets/Curtain.svg?react'
+import Phototemplate from '../assets/Phototemplate.gif'
+import Curtain from '../assets/Curtain.gif'
 import Discount from '../assets/Discount.svg?react'
 import K from '../assets/K.svg?react'
 import R from '../assets/R.svg?react'
@@ -51,7 +51,6 @@ function applyWiggle(svg) {
 
 export default function Home(props) { 
     const navigate = useNavigate();
-    const photoRef = useRef(null);
     const curtainRef = useRef(null);
     const discountRef = useRef(null);
     const KRef = useRef(null);
@@ -65,7 +64,6 @@ export default function Home(props) {
         if (svg) applyWiggle(svg);
         };
 
-        makeWiggly(photoRef.current);
         makeWiggly(curtainRef.current);
         makeWiggly(discountRef.current);
         makeWiggly(KRef.current);
@@ -79,9 +77,14 @@ export default function Home(props) {
     return(
         <div className="container">
             <div className='photoContainer'>
-                <div ref={photoRef} className='photobooth'>
-                    <Phototemplate  width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                    {...props}/>
+                <div className='photobooth'>
+                    <img
+                        src={Phototemplate}
+                        alt="Phototemplate"
+                        width="100%"
+                        height="100%"
+                        style={{ objectFit: "contain" }}
+                    />
                  </div>
                 
                  <div  ref={discountRef} className='discount'>
@@ -101,9 +104,14 @@ export default function Home(props) {
                     {...props}/>
                  </div>
 
-                  <div  ref={curtainRef} className='curtain'>
-                    <Curtain width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                    {...props}/>
+                  <div className='curtain'>
+                    <img
+                        src={Curtain}
+                        alt="Curtain"
+                        width="100%"
+                        height="100%"
+                        style={{ objectFit: "contain" }}
+                    />
                  </div>
             </div>
         </div>

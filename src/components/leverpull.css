@@ -7,17 +7,11 @@
   line-height: 0;        /* optional to remove vertical spacing */
   position: absolute;
   width: 150%;
-  top:-65px;
-  left:5px;
+  top:-50px;
+  left:3px;
 }
 
 
-@media screen and (max-width: 768px) {
-    .frame{
-        top:-48px;
-        left:3px;
-    }
-}
 
 
 @media screen and (max-width: 430px) {

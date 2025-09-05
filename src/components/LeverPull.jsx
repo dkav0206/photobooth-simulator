@@ -52,7 +52,7 @@ export default function LeverPull({
     stepMs = 120,     // time between frames
     holdOnFour = false, // if true, stays on frame 4 instead of resetting to 1
     className = "",
-    props
+    props,
     }) {
     const frames = [Lever1, Lever2, Lever3, Lever4];
     const [frame, setFrame] = useState(0); // 0..3
