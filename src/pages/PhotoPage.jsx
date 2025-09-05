@@ -48,7 +48,7 @@ function applyWiggle(svg) {
     svg.setAttribute("filter", `url(#${fid})`);
 }
 
-const interval = 100;
+const interval = 1000;
 const photoNo = 4;
 
 
@@ -120,9 +120,9 @@ export default function PhotoPage(props) {
         const shots = [];
         for (let i = 0; i < photoNo; i++) {
             // 4-second countdown (4,3,2,1)
-            for (let a = 0; a < 4; a++) {
+            for (let a = 4; a >= 0; a--) {
                 await sleep(interval);
-                setCountDown(4 - a);
+                setCountDown(a);
             }
 
             ctx.clearRect(0, 0, OUTPUT_W, OUTPUT_H);
@@ -158,8 +158,6 @@ export default function PhotoPage(props) {
         <div className="secondContainer">
             <div className='innerContainer'>
                 <div className='instruction'>
-                    {/* <Instruction width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-                        {...props} /> */}
                      <img
                         src={Instruction}
                         alt="Instruction"
@@ -186,7 +184,7 @@ export default function PhotoPage(props) {
 
                     {countDown === 5 ? (
                         <div className="bigg-ahh-rec"></div>
-                        ) : countDown === 1 ? (
+                        ) : countDown === 0 ? (
                         <div className="bigg-ahh-rec flash"></div>
                         ) : (
                         <div className="countDown">

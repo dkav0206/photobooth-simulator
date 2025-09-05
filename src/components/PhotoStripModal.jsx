@@ -2,16 +2,19 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import './photoStripModal.css'
 import { useNavigate } from "react-router-dom";
 import { Button, ColorPicker } from 'antd';
+import { UploadOutlined } from "@ant-design/icons";
+import custom1 from '../assets/custom/custom1/custom1.png';
+import avatar1 from '../assets/custom/custom1/avatar1.png';
+import Tooltip from '@mui/material/Tooltip';
+
 export default function PhotoStripModal({
   open,
   onClose,
   images = [],
-  panelWidth = 600,          // width of each photo area (px)
-  gapRatio = 0.03,           // gap between photos (relative to panelWidth)
-  borderRatio = 0.06,        // outer border thickness (relative to panelWidth)
-  panelAspect = 2 / 3,       // width/height ratio of each photo (default 4:5)
-  paperColor = "#fff",       // strip background color
-  paperBgSize = "cover",     // how to render template texture
+  panelWidth = 600,          
+  gapRatio = 0.03,         
+  borderRatio = 0.06,       
+  panelAspect = 2 / 3,      
   downloadName = "photostrip.png",
 }) {
   const navigate = useNavigate();
@@ -23,8 +26,14 @@ export default function PhotoStripModal({
   const [filter, setFilter] = useState(null)
   const [click, setClick] = useState(false)
   const [color, setColor] = useState('#fff');
+  const [activeFrame, setActiveFrame] = useState(null);
   const bgColor = useMemo(() => (typeof color === 'string' ? color : color.toHexString()), [color]);
 
+  const frames = [
+    { id: "color", type: "color", tooltip:"Color Picker"},
+    { id: "custom1", type: "custom1" , path:custom1, avatar:avatar1, tooltip:"Custom Frame 1"},
+    { id: "upload", type: "upload",tooltip:"Upload File" },
+  ];
 
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
@@ -32,9 +41,13 @@ export default function PhotoStripModal({
 
     const reader = new FileReader();
     reader.onload = () => {
-      setPaperBgImage(reader.result); // <-- Base64 string (data URL)
+      setPaperBgImage(reader.result);
+
+      setFilter("upload");
+      setColor("#fff");
     };
-    reader.readAsDataURL(file); // Convert file to Base64
+    reader.readAsDataURL(file);
+
   };
 
   const dims = useMemo(() => {
@@ -93,8 +106,6 @@ export default function PhotoStripModal({
       const exportWidth = Math.ceil(rect.width);
       const exportHeight = Math.ceil(rect.height);
       const { toPng } = await import("html-to-image");
-      console.log("1")
-      console.log(el)
       const dataUrl = await toPng(el, {
         pixelRatio: 2,
         cacheBust: true,
@@ -127,17 +138,7 @@ export default function PhotoStripModal({
   return (
     <div className="psm-backdrop" onMouseDown={(e) => e.target === e.currentTarget && onClose?.()}>
       <div className="psm-strip-container">
-        <div className={`psm-strip-button ${click ? "psm-clicked": ""}`} onClick={() => setClick(!click)}></div>
-        {/* <label className="psm-strip-button">
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            style={{ display: "none" }}
-            onChange={handleFileUpload}
-          />
-        </label> */}
-
+        <div className={`psm-strip-button ${click ? "psm-clicked" : ""}`} onClick={() => setClick(!click)}></div>
         <div
           className="psm-strip"
           ref={stripRef}
@@ -168,21 +169,74 @@ export default function PhotoStripModal({
       </div>
 
       {click ? <div className="filterContainer">
-          <h1>Frame</h1>
-          <div className="frameContainer">
-            <ColorPicker value={color} onChange={setColor}>
-              <Button type="primary" style={{backgroundColor: bgColor, borderRadius:"50%",
-                border: "solid 2px black",
-                width:"40px",
-                height:"40px",
-                padding:0
-              }} onClick={() => {
-                setFilter("color")
-              }}></Button>
-            </ColorPicker>
-          </div>
+        <h1>Frame</h1>
+        <div className="frameContainer">
+          {frames.map((frame) => {
+            if (frame.type === "color") {
+              return (
+                
+                  <ColorPicker key={frame.id} value={color} onChange={setColor}>
+                    <Tooltip title={frame.tooltip} placement="top">
+                      <Button
+                        className={`psm-frame ${activeFrame === frame.id ? "active-frame" : ""}`}
+                        type="primary"
+                        style={{ backgroundColor: bgColor, padding: 0 }}
+                        onClick={() => {
+                          setActiveFrame(frame.id);
+                          setFilter("color");
+                          setPaperBgImage("");
+                        }}
+                      />
+                    </Tooltip>
+                  </ColorPicker>
+                
+              );
+            }else if (frame.type === "upload") {
+              return (
+                <Tooltip key={frame.id} title={frame.tooltip} placement="top">
+                  <label
+                    className={`psm-frame ${activeFrame === frame.id ? "active-frame" : ""}`}
+                    style={{ backgroundColor: "#394c8eff" }}
+                    onClick={() => setActiveFrame(frame.id)}
+                  >
+                    <UploadOutlined className="uploadIcon" style={{ color: "white" }} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onClick={(e) => { e.currentTarget.value = null; }}
+                      style={{ display: "none" }}
+                      onChange={handleFileUpload}
+                    />
+                  </label>
+                </Tooltip>
+              );
+            } else {
+              return (
+              <Tooltip key={frame.id} title={frame.tooltip} placement="top">
+                <button 
+                  className={`psm-frame ${activeFrame === frame.id ? "active-frame" : ""}`}
+                  style={{
+                      backgroundColor: "transparent",
+                      backgroundImage: frame.avatar ? `url(${frame.avatar})` : "none",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  onClick={() => {
+                    setActiveFrame(frame.id); 
+                    setPaperBgImage(frame.path); 
+                    setFilter("custom");
+                    setColor("#fff");
+                  }
+                  }>
+                </button>
+              </Tooltip>
+              )
+            }
+          })}
 
-
+        </div>
       </div> : <></>}
 
       <div className="psm-actions">
