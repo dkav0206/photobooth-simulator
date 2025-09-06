@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import './photoStripModal.css'
 import { useNavigate } from "react-router-dom";
-import { Button, ColorPicker } from 'antd';
+import { Button, ColorPicker, Tooltip} from 'antd';
 import { UploadOutlined } from "@ant-design/icons";
 import custom1 from '../assets/custom/custom1/custom1.png';
 import avatar1 from '../assets/custom/custom1/avatar1.png';
-import Tooltip from '@mui/material/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
 
 export default function PhotoStripModal({
   open,
@@ -27,6 +27,7 @@ export default function PhotoStripModal({
   const [click, setClick] = useState(false)
   const [color, setColor] = useState('#fff');
   const [activeFrame, setActiveFrame] = useState(null);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const bgColor = useMemo(() => (typeof color === 'string' ? color : color.toHexString()), [color]);
 
   const frames = [
@@ -175,8 +176,13 @@ export default function PhotoStripModal({
             if (frame.type === "color") {
               return (
                 
-                  <ColorPicker key={frame.id} value={color} onChange={setColor}>
-                    <Tooltip title={frame.tooltip} placement="top">
+                  <ColorPicker key={frame.id} value={color} onChange={setColor}
+                    open={pickerOpen}
+                    onOpenChange={setPickerOpen}
+                    getPopupContainer={() => document.body}
+                  >
+                    <Tooltip title={frame.tooltip} placement="top" 
+                          open={pickerOpen ? false : undefined}>
                       <Button
                         className={`psm-frame ${activeFrame === frame.id ? "active-frame" : ""}`}
                         type="primary"
@@ -193,7 +199,7 @@ export default function PhotoStripModal({
               );
             }else if (frame.type === "upload") {
               return (
-                <Tooltip key={frame.id} title={frame.tooltip} placement="top">
+                <Tooltip key={frame.id} title={frame.tooltip} placement="top" >
                   <label
                     className={`psm-frame ${activeFrame === frame.id ? "active-frame" : ""}`}
                     style={{ backgroundColor: "#394c8eff" }}
