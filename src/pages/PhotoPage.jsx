@@ -3,7 +3,7 @@ import Instruction from '../assets/Instruction.gif';
 import BoothFrame from '../assets/BoothFrame.gif'
 import PhotoFrame from '../assets/PhotoFrame.gif'
 import Output from '../assets/Output.gif'
-import Strip from "../assets/strip.svg?react";
+import Strip from "../assets/Strip.svg?react";
 import './photopage.css'
 import LeverPull from '../components/LeverPull';
 import PhotoStripModal from '../components/PhotoStripModal';
