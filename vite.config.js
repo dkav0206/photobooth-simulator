@@ -4,6 +4,6 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(),svgr()],
+  plugins: [react(),svgr({ exportAsDefault: true })],
   base: process.env.VITE_BASE_PATH || "/photobooth-simulator"
 })
