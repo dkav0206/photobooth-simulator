@@ -61,8 +61,6 @@ export default function PhotoPage(props) {
     const [photos, setPhotos] = useState([]);
     const [countDown, setCountDown] = useState(5);
 
-
-
     const startCamera = async () => {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
         const video = videoRef.current;
